@@ -31,7 +31,7 @@
   </joint>
   
   <!-- Joint Chassis-LeftWheel -->
-  <joint type="continuous" name="left_wheel_hinge">
+  <joint name="left_wheel_hinge" type="continuous">
     <origin xyz="0 0.15 0" rpy="0 0 0"/>
     <parent link="chassis"/>
     <child link="left_wheel"/>
@@ -41,7 +41,7 @@
   </joint>
 
   <!-- Joint Chassis-RightWheel -->
-  <joint type="continuous" name="right_wheel_hinge">
+  <joint name="right_wheel_hinge" type="continuous">
     <origin xyz="0 -0.15 0" rpy="0 0 0"/>
     <parent link="chassis"/>
     <child link="right_wheel"/>
