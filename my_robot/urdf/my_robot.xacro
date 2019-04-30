@@ -1,7 +1,10 @@
 <?xml version='1.0'?>
 
 <robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo"/>
 
+
+  
   <link name="robot_footprint"></link>
 
   <!-- Joint FootPrint-Chassis -->
@@ -232,11 +235,11 @@
   </gazebo>
 
   <gazebo reference="chassis">
-    <material>Gazebo/Indigo</material>
+    <material>Gazebo/SkyBlue</material>
   </gazebo>
 
   <gazebo reference="camera">
-    <material>Gazebo/FlatBlack</material>
+    <material>Gazebo/DarkGrey</material>
   </gazebo>
   <!-- End of the color configuration -->
 

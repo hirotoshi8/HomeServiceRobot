@@ -20,7 +20,7 @@
   
   
  <!-- World File -->
- <arg name="world_file" default="$(find my_robot)/worlds/myroom_world.world"/>
+ <arg name="world_file" default="$(find my_robot)/worlds/Go_chase_it_world.world"/>
 
  <!-- Launch Gazebo World -->
  <include file="$(find gazebo_ros)/launch/empty_world.launch">
