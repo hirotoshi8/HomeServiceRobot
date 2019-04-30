@@ -4,12 +4,32 @@
 
   <link name="robot_footprint"></link>
 
+  <!-- Joint FootPrint-Chassis -->
   <joint name="robot_footprint_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="robot_footprint"/>
     <child link="chassis" />
   </joint>
 
+  <!-- Joint Chassis-Camera -->
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="0.2 0 0" rpy="0 0 0" />
+    <parent link="chassis"/>
+    <child link="camera" />
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Joint Chassis-Lidar(Hokuyo) -->
+  <joint name="hokuyo_joint" type="fixed">
+    <origin xyz="0.15 0 0.1" rpy="0 0 0" />
+    <parent link="chassis"/>
+    <child link="hokuyo"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+  </joint>
+
+
+  
+  <!-- Joint Chassis-LeftWheel -->
   <joint type="continuous" name="left_wheel_hinge">
     <origin xyz="0 0.15 0" rpy="0 0 0"/>
     <parent link="chassis"/>
@@ -19,6 +39,7 @@
     <dynamics damping="1.0" friction="1.0"/>
   </joint>
 
+  <!-- Joint Chassis-RightWheel -->
   <joint type="continuous" name="right_wheel_hinge">
     <origin xyz="0 -0.15 0" rpy="0 0 0"/>
     <parent link="chassis"/>
@@ -145,6 +166,62 @@
     </visual>
   </link>
   <!-- End of the Right Wheel -->
-  
+
+  <!-- Camera -->
+  <link name='camera'>
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <box_inertia m="0.1" x="0.05" y="0.05" z="0.05"/>
+      <inertia
+          ixx="1e-6" ixy="0" ixz="0"
+          iyy="1e-6" iyz="0"
+          izz="1e-6"
+      />
+    </inertial>
+
+    <collision name='camera_collision'>
+      <origin xyz="0 0 0" rpy="0 0 0"/> 
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </collision>
+
+    <visual name='camera_visual'>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+    </visual>
+  </link>
+  <!-- End of the camera -->
+
+  <!-- Lidar(Hokuyo) -->
+  <link name='hokuyo'>
+    <inertial>
+      <mass value="1e-5"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia
+          ixx="1e-6" ixy="0" ixz="0"
+          iyy="1e-6" iyz="0"
+          izz="1e-6"
+      />
+    </inertial>
+
+    <collision name='camera_collision'>
+      <origin xyz="0 0 0" rpy="0 0 0"/> 
+      <geometry>
+        <box size="0.1 0.1 0.1"/>
+      </geometry>
+    </collision>
+
+    <visual name='camera_visual'>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+	<mesh filename="package://my_robot/meshes/hokuyo.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <!-- End of the Hokuyo -->
   
 </robot>
