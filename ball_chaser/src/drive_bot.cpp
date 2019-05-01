@@ -28,8 +28,8 @@ bool handle_drive_request(ball_chaser::DriveToTarget::Request& req,
   ros::Duration(3).sleep();
 
   // Return a response message
-  res.msg_feedback = "linear x set: " + std::to_string(motor_command.linear.x)
-    + "angular z set: " + std::to_string(motor_command.angular.z);
+  res.msg_feedback = "linear_x set: " + std::to_string(motor_command.linear.x)
+    + "  "+ "angular_z set: " + std::to_string(motor_command.angular.z);
 
   //  res.msg_feedback = "Joint angles set - j1: " + std::to_string(joints_angles[0]) + " , j2: " + std::to_string(joints_angles[1]);
   ROS_INFO_STREAM(res.msg_feedback);
