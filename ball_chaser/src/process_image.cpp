@@ -28,8 +28,8 @@ void process_image_callback(const sensor_msgs::Image img)
     float vel = 0.0f;
     float omega = 0.0f;
     
-    int left_threshold = img.step*1/3;
-    int right_threshold = img.step*2/3;
+    int left_threshold = img.step*1/4;
+    int right_threshold = img.step*3/4;
     
     // TODO: Loop through each pixel in the image and check if there's a bright white one
     // Then, identify if this pixel falls in the left, mid, or right side of the image
@@ -54,14 +54,14 @@ void process_image_callback(const sensor_msgs::Image img)
       }
       // is white ball in the left side ?
       if( position < left_threshold){
-	vel = 0.2f;
+	vel = 0.0f;
 	omega = 0.5f;
 	break;
       }
       // is white ball in the right side ?
       if( right_threshold < position){
-	vel = 0.2f;
-	omega = 0-.5f;
+	vel = 0.0f;
+	omega = -0.5f;
 	break;
       }
     }

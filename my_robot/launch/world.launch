@@ -32,7 +32,7 @@
  </include>
 
  <!-- Launch rviz-->
-<!--  <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d /home/workspace/Go_Chase_it/src/go_chase_it.rviz"/> -->
+ <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d /home/workspace/Go_Chaise_it/src/go_chase_it.rviz"/>
  
 </launch>
 
