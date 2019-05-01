@@ -25,7 +25,7 @@ bool handle_drive_request(ball_chaser::DriveToTarget::Request& req,
   motor_command_publisher.publish(motor_command);
 
   // wait for 3 second for target to settle
-  ros::Duration(3).sleep();
+  //ros::Duration(3).sleep();
 
   // Return a response message
   res.msg_feedback = "linear_x set: " + std::to_string(motor_command.linear.x)

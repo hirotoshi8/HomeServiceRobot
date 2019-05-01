@@ -44,24 +44,27 @@ void process_image_callback(const sensor_msgs::Image img)
       // is this white ball ?
       if(white_pixel != color) continue;
 
-      int position = i % img.height;
+      int position = i % img.step;
 
       // is white ball face-to-face ?
       if( (left_threshold < position) && (position < right_threshold) ){
-	vel = 1.0f;
+	vel = 0.5f;
 	omega = 0.0f;
+	ROS_INFO("========== Straight ==========");
 	break;
       }
       // is white ball in the left side ?
       if( position < left_threshold){
 	vel = 0.0f;
-	omega = 0.5f;
+	omega = 0.2f;
+	ROS_INFO("---------- Left side ----------");
 	break;
       }
       // is white ball in the right side ?
       if( right_threshold < position){
 	vel = 0.0f;
-	omega = -0.5f;
+	omega = -0.2f;
+	ROS_INFO("********** Right side **********");
 	break;
       }
     }
