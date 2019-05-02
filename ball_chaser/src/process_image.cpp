@@ -23,7 +23,7 @@ void drive_robot(float lin_x, float ang_z)
 void process_image_callback(const sensor_msgs::Image img)
 {
 
-    const int white_pixel = 255;
+    const int white_pixel_threshold = 200;
 
     float vel = 0.0f;
     float omega = 0.0f;
@@ -37,13 +37,25 @@ void process_image_callback(const sensor_msgs::Image img)
     // Request a stop when there's no white ball seen by the camera
 
     int img_size = img.height * img.step;
-    for(int i=0; i < img_size; i++){
+    const int num_channel = 3;
+    
+    for(int i=0; i < img_size; i+=num_channel){
 
-      int color = img.data[i];
-
+      int r_color = img.data[i];
+      int g_color = img.data[i+img.step];
+      int b_color = img.data[i+2*img.step];
+      
       // is this white ball ?
-      if(white_pixel != color) continue;
+      if( (white_pixel_threshold > r_color)
+	  || (white_pixel_threshold > g_color)
+	  || (white_pixel_threshold > b_color) ) continue;
 
+      //Debug if it success to get white ball, all channels values are near 255
+      ROS_INFO("%d",r_color);
+      ROS_INFO("%d",g_color);
+      ROS_INFO("%d",b_color);
+
+      // Get the positoin og white ball in the image
       int position = i % img.step;
 
       // is white ball face-to-face ?
@@ -55,14 +67,14 @@ void process_image_callback(const sensor_msgs::Image img)
       }
       // is white ball in the left side ?
       if( position < left_threshold){
-	vel = 0.0f;
+	vel = 0.1f;
 	omega = 0.2f;
 	ROS_INFO("---------- Left side ----------");
 	break;
       }
       // is white ball in the right side ?
       if( right_threshold < position){
-	vel = 0.0f;
+	vel = 0.1f;
 	omega = -0.2f;
 	ROS_INFO("********** Right side **********");
 	break;
