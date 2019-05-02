@@ -19,7 +19,7 @@
   
   
  <!-- World File -->
- <arg name="world_file" default="$(find my_robot)/worlds/Go_chase_it_world.world"/>
+ <arg name="world_file" default="$(find my_robot)/worlds/my_world.world"/>
 
  <!-- Launch Gazebo World -->
  <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -31,7 +31,7 @@
  </include>
 
  <!-- Launch rviz-->
- <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d /home/workspace/Go_Chaise_it/src/go_chase_it.rviz"/>
+ <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d $(find my_robot)/go_chase_it.rviz"/>
  
 </launch>
 
