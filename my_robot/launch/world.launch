@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <launch>
-
   <!-- Robot pose -->
   <arg name="x" default="-3"/>
   <arg name="y" default="0"/>
@@ -32,7 +31,7 @@
  </include>
 
  <!-- Launch rviz-->
-<!--  <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d /home/workspace/Go_Chase_it/src/go_chase_it.rviz"/> -->
+ <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d /home/workspace/Go_Chaise_it/src/go_chase_it.rviz"/>
  
 </launch>
 
