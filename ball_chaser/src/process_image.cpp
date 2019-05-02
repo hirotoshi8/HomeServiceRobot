@@ -42,8 +42,8 @@ void process_image_callback(const sensor_msgs::Image img)
     for(int i=0; i < img_size; i+=num_channel){
 
       int r_color = img.data[i];
-      int g_color = img.data[i+img.step];
-      int b_color = img.data[i+2*img.step];
+      int g_color = img.data[i+1];
+      int b_color = img.data[i+2];
       
       // is this white ball ?
       if( (white_pixel_threshold > r_color)
@@ -67,14 +67,14 @@ void process_image_callback(const sensor_msgs::Image img)
       }
       // is white ball in the left side ?
       if( position < left_threshold){
-	vel = 0.1f;
+	vel = 0.01f;
 	omega = 0.2f;
 	ROS_INFO("---------- Left side ----------");
 	break;
       }
       // is white ball in the right side ?
       if( right_threshold < position){
-	vel = 0.1f;
+	vel = 0.01f;
 	omega = -0.2f;
 	ROS_INFO("********** Right side **********");
 	break;
