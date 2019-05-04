@@ -8,7 +8,7 @@
 
   <!-- AMCL node-->
   <node name="amcl" type="amcl" pkg="amcl" output="screen">
-    <remap from="scan" to="my_robot/laser/scan"/>
+<!--    <remap from="scan" to="my_robot/laser/scan"/> -->
     <param name="odom_fram_id" value="odom"/>
     <param name="odom_model_type" value="diff-corrected"/>
     <param name="base_frame_id" value="robot_footprint"/>
@@ -21,7 +21,7 @@
   
   <!-- move base node-->
   <node name="move_base" type="move_base" pkg="move_base" respawn="false" output="screen">
-    <remap from="scan" to="my_robot/laser/scan"/>
+<!--    <remap from="scan" to="my_robot/laser/scan"/> -->
     <param name="base_global_planner" value="navfn/NavfnROS"/>
     <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
 
