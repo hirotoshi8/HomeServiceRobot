@@ -16,6 +16,24 @@
     <!-- If you choose to define initial pose here-->
     <param name="initial_pose_x" value="0"/>
     <param name="initial_pose_y" value="0"/>
+
+    <!-- Overall Filter -->
+    <param name="min_particles" value="500"/>
+    <param name="max_particles" value="5000"/>
+    <param name="update_min_d" value="0.1"/>
+    <param name="update_min_a" value="0.157"/>
+
+    <param name="transform_tolerance" value="0.1"/>
+
+    <!-- Laser -->
+    <param name="laser_min_range" value="-1.0"/>
+    <param name="laser_max_range" value="-1.0"/>
+    <param name="laser_max_beam" value="30"/>
+    <param name="laser_z_hit" value="0.95"/>
+    <param name="laser_z_rand" value="0.05"/>
+
+
+    
   </node>
   
   <!-- move base node-->
