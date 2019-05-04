@@ -8,9 +8,9 @@
 
   <!-- AMCL node-->
   <node name="amcl" type="amcl" pkg="amcl" output="screen">
-    <remap from="scan" to="where_I_am/laser/scan"/>
+    <remap from="scan" to="my_robot/laser/scan"/>
     <param name="odom_fram_id" value="odom"/>
-    <param name="odom_model_type" value="diff_corrected"/>
+    <param name="odom_model_type" value="diff-corrected"/>
     <param name="base_frame_id" value="robot_footprint"/>
     <param name="global_frame_id" value="map"/>
 
@@ -21,18 +21,17 @@
   
   <!-- move base node-->
   <node name="move_base" type="move_base" pkg="move_base" respawn="false" output="screen">
-    <remap from="scan" to="wehre_I_am/laser/scan"/>
+    <remap from="scan" to="my_robot/laser/scan"/>
     <param name="base_global_planner" value="navfn/NavfnROS"/>
     <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
 
     <!-- Fron configuraion -->
-    <rosparam file="$(find udacity_bot)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
-    <rosparam file="$(find udacity_bot)/config/costmap_common_params.yaml" command="load" ns="local_cost_map"/>
-    <rosparam file="$(find udacity_bot)/config/local_costmap_params.yaml" command="load"/>
-    <rosparam file="$(find udacity_bot)/config/global_costmap_params.yaml" command="load"/>
-    <rosparam file="$(find udacity_bot)/config/base_local_planner_params.yaml" command="load"/>
+    <rosparam file="$(find udacity_bot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find udacity_bot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find udacity_bot)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find udacity_bot)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find udacity_bot)/config/base_local_planner_params.yaml" command="load" />
+
   </node>
-
-
 
 </launch>
