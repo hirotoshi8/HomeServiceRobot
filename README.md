@@ -1,11 +1,11 @@
-# Go_Chase_It
+# Where I am project
 
 ## Overview
-This project is the "Go chase it" project in Udacity Robot nano degree program.
+This project is the "Where I am" project in Udacity Robotics nano degree program.
 
 This project is developed with ROS and Gazebo.
-A robot chase the white ball in Gazebo environment.     
-You move the white ball and the robot chase the ball.
+A robot localizes self-position in Map(Gazebo environment).     
+You set a navigation goal as "2D NavGoal" in Rviz and the robot move to the goal with identify self-positon.
 
 ## Build instruction
 1. Create workspace 
