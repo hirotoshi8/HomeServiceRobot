@@ -31,7 +31,7 @@
  </include>
 
  <!-- Launch rviz-->
- <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d $(find my_robot)/go_chase_it.rviz"/>
+<!--  <node name="rviz" pkg="rviz" type="rviz" respawn="false" args="-d $(find my_robot)/go_chase_it.rviz"/> -->
  
 </launch>
 
