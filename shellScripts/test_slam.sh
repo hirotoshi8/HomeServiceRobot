@@ -1,17 +1,17 @@
 #!/bin/sh
-xterm -e " gazebo" &
+xterm -e " source /opt/ros/kinetic/setup.bash" &
 sleep 5
-xterm -e " source /opt/ros/kinetic/setup.bash; roscore" &
+xterm -e " source /home/workspace/catkin_ws/devel/setup.bash" &
+sleep 5
+xterm -e " roscore" &
 sleep 5
 
-xterm -e " roslaunch turtlebot_gazebo turtlebot_world.launch worldfile:=($ my_robot)/worlds/my_world.world"
+xterm -e " roslaunch turtlebot_gazebo turtlebot_world.launch world_file:=/home/workspace/catkin_ws/src/HomeServiceRobot/my_robot/worlds/my_world.world" &
+sleep 5
 
-sleep 3
-xterm " roslaunch turtlebot_gazebo gmapping.launch"
-
-sleep 3
-xterm -e " roslaunch turtlebot_rviz_launchers view_navigation.launch"
-
-sleep 3
-xterm " roslaunch turtlebot_teleop keyboard_teleop.launch"
+xterm -e "roslaunch turtlebot_gazebo gmapping_demo.launch" &
+sleep 5
+xterm -e " roslaunch turtlebot_rviz_launchers view_navigation.launch" &
+sleep 5
+xterm -e " roslaunch turtlebot_teleop keyboard_teleop.launch"
 
