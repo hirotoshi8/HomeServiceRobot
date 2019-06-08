@@ -23,15 +23,17 @@ $cd {$ your workspace}/project_workspace
 $catkin_make
 ```
 
-<<<<<<< HEAD
 3.Clone official packages
+3-1.gmapping
 - git clone https://github.com/ros-perception/slam_gmapping
 - rosdep install gmapping
 - cd ..
 - cakin_make
-=======
+3-2.turtlebot
+- turtlebot_teleop
+- turtlebot_rviz_launchers
+- turtlebot_gazebo
 
->>>>>>> 98a9471d598fb6a651dd7a1df7cc246d78cd1782
 
 3. clone this repository
 ```
