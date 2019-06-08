@@ -26,6 +26,7 @@ int main(int argc, char** argv){
 
   // Define a position and orientation for the robot to reach
   goal.target_pose.pose.position.x = 1.0;
+  goal.target_pose.pose.position.y = 2.0;
   goal.target_pose.pose.orientation.w = 1.0;
 
    // Send the goal position and orientation for the robot to reach
@@ -44,15 +45,14 @@ int main(int argc, char** argv){
   }
 
   // Wait next action
-  ros::Rate rate(10);
+  ros::Rate loop_rate(1);
   ros::Time start = ros::Time::now();
   ros::Time end = ros::Time::now();
-  while(ros::ok()){
+  
+  while((end - start) < ros::Duration(5.0f)){
+    //ROS_INFO("Wait for the next goal setup");
     end = ros::Time::now();
-    if((start - end) > ros::Duration(5.0f)){
-      break;
-    }
-    ros::spinOnce();
+    loop_rate.sleep();
   }
 
   // set up the frame parameters
@@ -61,6 +61,7 @@ int main(int argc, char** argv){
 
   // Define a position and orientation for the robot to reach
   goal.target_pose.pose.position.x = 2.0;
+  goal.target_pose.pose.position.y = 5.0;
   goal.target_pose.pose.orientation.w = 0.0;
 
    // Send the goal position and orientation for the robot to reach
