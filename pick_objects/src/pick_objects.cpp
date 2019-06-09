@@ -45,24 +45,27 @@ int main(int argc, char** argv){
   }
 
   // Wait next action
+  sleep(5);
+#if 0
   ros::Rate loop_rate(1);
   ros::Time start = ros::Time::now();
   ros::Time end = ros::Time::now();
-  
+
   while((end - start) < ros::Duration(5.0f)){
     //ROS_INFO("Wait for the next goal setup");
     end = ros::Time::now();
     loop_rate.sleep();
   }
+#endif
 
   // set up the frame parameters
   goal.target_pose.header.frame_id = "map";
   goal.target_pose.header.stamp = ros::Time::now();
 
   // Define a position and orientation for the robot to reach
-  goal.target_pose.pose.position.x = 2.0;
-  goal.target_pose.pose.position.y = 5.0;
-  goal.target_pose.pose.orientation.w = 0.0;
+  goal.target_pose.pose.position.x = 5.0;
+  goal.target_pose.pose.position.y = 2.0;
+  goal.target_pose.pose.orientation.w = 1.0;
 
    // Send the goal position and orientation for the robot to reach
   ROS_INFO("Sending 2nd goal in Drop-Off zone");
