@@ -1,36 +1,5 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
-#include <nav_msgs/Odometry.h>
-
-static int is_arrive_goal = false;
-static float goal_pos_x;
-static float goal_pos_y;
-
-const float FirstGoalPos_x = 1.0;
-const float FirstGoalPos_y = 2.0;
-
-const float SecondGoalPos_x = 5.0;
-const float SecondGoalPos_y = 2.0;
-
-const float ThreGoalArrive = 0.5;
-
-static int cycle_count = 1;
-
-void callback_odometry(const nav_msgs::Odometry::ConstPtr& msg){
-
-  float pos_x = msg->pose.pose.position.x;
-  float pos_y = msg->pose.pose.position.y;
-  ROS_INFO("Positoin: x[%f], y[%f]", pos_x, pos_y);
-
-  float distance = (goal_pos_x - pos_x)*(goal_pos_x - pos_x) + (goal_pos_y - pos_y)*(goal_pos_y - pos_y);
-  if(distance < ThreGoalArrive){
-    is_arrive_goal = true;
-    cycle_count = cycle_count+1;
-  }
-  return;
-}
-
-
 
 int main( int argc, char** argv )
 {
@@ -58,33 +27,40 @@ int main( int argc, char** argv )
 
     // Set the marker type.  Initially this is CUBE, and cycles between that and SPHERE, ARROW, and CYLINDER
     marker.type = shape;
+
+    // Cycle process
+    int marker_pose_x = 0;
+    int marker_pose_y = 0;
   
     switch (cycle_count)
     {
     case 1:
       // Set the marker action.  Options are ADD, DELETE, and new in ROS Indigo: 3 (DELETEALL)
       marker.action = visualization_msgs::Marker::ADD;
-      goal_pos_x = FirstGoalPos_x;
-      goal_pos_y = FirstGoalPos_y;
-
-      is_arrive_goal = false;
+      marker_pose_x = 2;
+      marker_pose_y = 3; 
+      cycle_count = cycle_count+1;
       ROS_INFO("Set the 1st marker");
       break;
     case 2:
       marker.action = visualization_msgs::Marker::DELETE;
-      is_arrive_goal = false;
+      //      marker_pose_x = 1;
+      //      marker_pose_y = 2;
+      cycle_count = cycle_count+1;
       ROS_INFO("Delete the 1st marker");
       break;
     case 3:
       marker.action = visualization_msgs::Marker::ADD;
-      goal_pos_x = SecondGoalPos_x;
-      goal_pos_y = SecondGoalPos_y; 
-      is_arrive_goal = false;
+      marker_pose_x = 4;
+      marker_pose_y = 8;
+      cycle_count = cycle_count+1;
       ROS_INFO("Set the 2nd marker");
       break;
     case 4:
       marker.action = visualization_msgs::Marker::DELETE;
-      is_arrive_goal = false;
+      //      marker_pose_x = 1;
+      //      marker_pose_y = 2;
+      cycle_count = cycle_count+1;
       ROS_INFO("Delete the 2nd marker");
       break;
     default:
@@ -93,8 +69,8 @@ int main( int argc, char** argv )
     }
 
     // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
-    marker.pose.position.x = goal_pos_x;
-    marker.pose.position.y = goal_pos_y;
+    marker.pose.position.x = marker_pose_x;
+    marker.pose.position.y = marker_pose_y;
     marker.pose.position.z = 0;
     marker.pose.orientation.x = 0.0;
     marker.pose.orientation.y = 0.0;
@@ -114,6 +90,7 @@ int main( int argc, char** argv )
 
     marker.lifetime = ros::Duration();
 
+#if 1
     // Publish the marker
     while (marker_pub.getNumSubscribers() < 1)
     {
@@ -124,7 +101,7 @@ int main( int argc, char** argv )
       ROS_WARN_ONCE("Please create a subscriber to the marker");
       sleep(1);
     }
-
+#endif
     // Publish
     marker_pub.publish(marker);
     ROS_INFO("Publish the marker");
