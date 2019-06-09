@@ -1,21 +1,20 @@
-# Map my world project
+# Home Service Robot project
 
 ## Overview
-This project is the "Map my world" project in Udacity Robotics nano degree program.
+This project is the "Home Service Robot" project in Udacity Robotics nano degree program.
 
 This project is developed with ROS and Gazebo.
-A robot create a map for navigation as database file(Gazebo environment).     
-You control a robot with teleoperation, map the world in gazebo environment and create a map as database file.
+A self-driving robot go to the first destination for picking up the target, which is green marker and pick it up for a few second and then go to the next target for dropping it off.
 
 
-## Build instruction
-1. Create workspace 
 
+# Build instruction
+## 1. Create workspace 
 ```
-$mkdir -p {$ your workspace}project_workspace/src
+$mkdir -p {$ your workspace}/project_workspace/src
 ```
 
-2. Initial setting for catkin_workspace
+## 2. Initial setting for catkin_workspace
 ```
 $cd {$ your workspace}/project_workspace/src
 $catkin_init_workspace
@@ -23,47 +22,69 @@ $cd {$ your workspace}/project_workspace
 $catkin_make
 ```
 
-3.Clone official packages
-3-1.gmapping
-- git clone https://github.com/ros-perception/slam_gmapping
-- rosdep install gmapping
-- cd ..
-- cakin_make
-3-2.turtlebot
+## 3. Pre-requistics (Clone ROS official packages) 
+
+### 3-1. gmapping
+```
+$cd {$ your workspace}/project_workspace/src
+$git clone https://github.com/ros-perception/slam_gmapping
+$rosdep install gmapping
+$cd ..
+$cakin_make
+``` 
+
+###  3-2. turtlebot   
+you need some packages about turtlebot below
 - turtlebot_teleop
 - turtlebot_rviz_launchers
 - turtlebot_gazebo
+```
+$cd {$ your workspace}/project_workspace/src
+$git clone https://github.com/turtlebot/turtlebot.git
+$git clone https://github.com/turtlebot/turtlebot_interactions.git
+$git clone https://github.com/turtlebot/turtlebot_simulator.git
+```
 
-
-3. clone this repository
+### 4. Clone this project repository
 ```
 $cd {$ your workspace}/project_workspace/src
 $git clone {$ this_repositpry}.git
 ```
 
-4. Build
+### 5. Build
 ```
 $cd {$ your workspace}/project_workspace
 $catkin_make
 ```
 
-## Simulation Instruction
-1. Launch the gazebo world
+# Simulation Instruction
+- For simulation of the home service robot demo,
+you do the command bellow.
+-  Home service robot demo is launched with Gazebo, Rviz and the other application nodes.
 ```
-$roslaunch my_robot world.launch
-```
-
-2. Launch manual controller with teleoperaion
-```
-$roslaunch my_robot teleop.launch
+$cd {$ your workspace}/project_workspace/src/HomeServiceRobot/src/shellScripts
+$./home_service.sh
 ```
 
-3. Launch mapping node
+# Test Simulation
+- For making this project, I make the some test simulation sets as shell scripts.
+
+1. Test SLAM to create the map with gmapping
 ```
-$roslaunch my_robot mappping.launch
+$./test_slam.sh
 ```
 
-4. You cnotrol the robot with teleoperaion and map the world in gazebo world.
+2. Test Navigation with AMCL
+```
+$./test_navigation.sh
+```
 
-## Result
-- As sample of the result, I save the database file below
+3. Test for the setting some markers in Rviz
+```
+$./add_markers.sh
+```
+
+4. Test for the picking up and dropping off the target
+```
+$./pick_objects.sh
+```
