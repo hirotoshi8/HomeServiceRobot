@@ -4,14 +4,14 @@
 This project is the "Home Service Robot" project in Udacity Robotics nano degree program.
 
 This project is developed with ROS and Gazebo.
-A self-driving robot go to the first destination for picking up the target, which is green marker and pick it up for a few second and then go to the next target for dropping it off.
+A autonomous robot go to the first destination for picking up a object, which is green marker and after a few second, go to the next destination for dropping it off.
 
-# Autonomous robot Algorithm structure
+# Autonomous robot algorithm explanation
 ## Creating the MAP for localization
-- For autonomous driving, it's neccessary to localize the pose of the robot and goals in the world. For this localization, MAP is needed and created by SLAM algorithm.
-- In this project, I use gmapping package in ROS.
+- For autonomous driving, it's neccessary to localize the position(and pose) of the robot and goals in the world. For this localization, creating MAP is important.
+- In this project, I use gmapping package in ROS for making MAP.
 - This package is based on the Grid-based Fast SLAM algorithm using the particle filter and occupancy grid mapping.
-- This Grid-based is implemented as "gmapping" package in ROS. In this project, this package is adapted.
+
 ## Localization with MAP
 - In this project, I use AMCL package in ROS for the localization.
 - This package is the probabilistic localization sysytem based on the Monte Carlo lozalization, using particle filter to track the robot positon and pose against a known MAP.
