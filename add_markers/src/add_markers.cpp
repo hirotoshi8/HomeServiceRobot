@@ -2,6 +2,8 @@
 #include <visualization_msgs/Marker.h>
 #include <nav_msgs/Odometry.h>
 
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
+
 static int is_arrive_goal = false;
 static float goal_pos_x;
 static float goal_pos_y;
@@ -18,20 +20,21 @@ static int cycle_count = 1;
 
 
 
-void callback_odometry(const nav_msgs::Odometry::ConstPtr& msg){
-
+//void callback_odometry(const nav_msgs::Odometry::ConstPtr& msg){
+void callback_odometry(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg){
   float pos_x = msg->pose.pose.position.x;
   float pos_y = msg->pose.pose.position.y;
-  ROS_INFO("Positoin: x[%f], y[%f]", pos_x, pos_y);
+  //  ROS_INFO("Positoin: x[%f], y[%f]", pos_x, pos_y);
 
   // Detect the robot is arrived at goals
-  float diff_x = goal_pos_x - pos_x;
-  float diff_y = goal_pos_y - pos_y;
+  float diff_x = fabs(goal_pos_x - pos_x);
+  float diff_y = fabs(goal_pos_y - pos_y);
 
-  ROS_INFO("Positoin: diff_x[%f], diff_y[%f]", diff_x, diff_y);
+  //  ROS_INFO("Positoin: diff_x[%f], diff_y[%f]", diff_x, diff_y);
 
-  float distance = (diff_x)*(diff_x) + (diff_y)*(diff_y);
-
+  float distance = diff_x*diff_x + diff_y*diff_y;
+  ROS_INFO("distance: dist[%f]", distance);
+  
   if(distance < ThreGoalArrive){
     ROS_INFO("!!!!!!!!!! Gaol !!!!!!!!!!");
     is_arrive_goal = true;
@@ -44,10 +47,11 @@ int main( int argc, char** argv )
 {
   ros::init(argc, argv, "add_markers");
   ros::NodeHandle n;
-  ros::Rate r(0.2);
+  ros::Rate loop_rate(10);
   ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
-  ros::Subscriber odom_sub = n.subscribe("/odom", 11, callback_odometry);
-
+  //  ros::Subscriber odom_sub = n.subscribe("/odom", 11, callback_odometry);
+  ros::Subscriber odom_sub = n.subscribe("/amcl_pose", 1, callback_odometry);
+    
   // Set our initial shape type to be a cube
   uint32_t shape = visualization_msgs::Marker::CUBE;
 
@@ -158,7 +162,7 @@ int main( int argc, char** argv )
 	  cycle_count = cycle_count + 1;
 	
 	}else{
-	  ROS_INFO("Waiting for ...");
+	  ROS_INFO("Waiting for 1st Goal");
 	}
 	break;
 
@@ -198,7 +202,7 @@ int main( int argc, char** argv )
 	  // update the marker state
 	  cycle_count = cycle_count + 1;
 	}else{
-	  ROS_INFO("Waiting for ...");
+	  ROS_INFO("Waiting for 2nd Goal");
 	}
 	break;
       
@@ -222,5 +226,6 @@ int main( int argc, char** argv )
     
     // wait for the Odometry as Triger to change the goal positoin
     ros::spinOnce();
+    loop_rate.sleep();
   }
 }
